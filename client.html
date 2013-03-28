@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
+    	<script src="js/jquery.mobile-1.3.0-rc.1.js" type="text/javascript"></script>
+    	<script src="js/jquery.mobile.pagination.js" type="text/javascript"></script>
+    	<link rel="stylesheet" href="css/jquery.mobile-1.3.0-rc.1.css">
+    	<link rel="stylesheet" href="css/jquery.mobile.pagination.css">
+    	<link rel="stylesheet"  href="css/jqm-icon-pack-2.0-original.css" />
+    	<link rel="stylesheet"  href="css/pop.css" />
+	</head>
+	<body>
+
+
+		
+		<div data-role = "page" data-theme = "a" id="main">
+			<div data-role = "content" data-theme = "a">
+				<a href="#popupBasic" data-rel="popup">Open Popup</a>
+				
+				<div data-role="popup" id="popupBasic" data-overlay-theme="a" data-position-to="window">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					<div class="pop_cont" style="background-image : url('http://a0.twimg.com/profile_background_images/623983121/t94uekpvj4f6mmb0y07p.jpeg'); background-size:100% 100%; background-repeat:no-repeat;" >
+						<img src="http://a0.twimg.com/profile_images/2823681988/f4f6f2bed8ab4d5a48dea4b9ea85d5f1_normal.jpeg"/>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+						<p>This action cannot be undone.</p>
+					</div>
+				</div>
+				<ul data-role="listview" data-inset="true" id="items" >
+				</ul>
+			
+			<div data-role="button" onclick="clickdata();">Load more</div>
+			</div>
+
+		</div>
+		
+	</body>
+
+	<script type = "text/javascript">
+	
+	var index=0;
+	var timer = setInterval(function () {
+		scrollOK = true;
+	    }, 100),
+	    scrollOK = true,
+	    count    = 20;
+	$(window).bind("scroll", function () {
+	    if (scrollOK) {
+		scrollOK = false;
+		if ($(this).scrollTop() + $(this).height() >= ($(document).height()-25)) {
+		   clickdata();
+		}
+	    }
+	});
+	function clickdata(){
+		   
+		   
+	  $.getJSON('favs.json',function (data) {
+
+		  var end = 0;
+		  var part_data;
+		  if (index+25 <= data.length)
+		    end = index+25;
+		  else
+		     end=data.length;
+		  part_data = data.slice(index,end);
+		  moreinfo(part_data);
+		  index=end;
+		  
+	  });
+	   
+	}
+	function moreinfo(data){
+	    $.each(data, function () {
+		  var text = this.text;
+		  var name = this.user.screen_name;
+		  var image = this.user.profile_image_url;
+
+		  var shtml = '';
+		  shtml=shtml+'<li class="ui-btn ui-btn-up-b ui-btn-icon-right\
+		    ui-li-has-arrow ui-li ui-li-has-thumb" data-corners="true" \
+		    data-shadow="true" data-iconshadow="true" data-wrapperels="div"\
+		    data-icon="arrow-r" data-iconpos="right" data-theme="b">\
+					    <div class="ui-btn-inner ui-li">\
+					  <div class="ui-btn-text">\
+					  <a class="ui-link-inherit" href="#popupBasic" data-rel="popup" >\
+					  <img class="ui-li-thumb" width="80px" src='+image+'>\
+					    <h3 class="ui-li-heading">'+name+'</h3>\
+					  <p class="ui-li-desc">'+text+'</p>\
+					  </a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">\
+					    </span></div></li>'
+		  $('#items').append(shtml);
+	    });
+	}
+	</script>
+
+
+	
+</html>
+
+
+
