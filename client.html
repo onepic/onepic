@@ -17,41 +17,6 @@
 			<div data-role = "content" data-theme = "a" data-inset="true" id="content">
 				<a href="#popupBasic" data-rel="popup">Open Popup</a>
 				
-				<div data-role="popup" id="popupBasic" data-overlay-theme="a" data-position-to="window" style="max-width:500px">
-					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					<div data-role="header" data-theme="a" class="ui-corner-top">
-						<h1>Show Details</h1>
-					</div>
-					<div class="pop_cont" style="background-image : url('http://a0.twimg.com/profile_background_images/623983121/t94uekpvj4f6mmb0y07p.jpeg'); background-size:100% 100%; background-repeat:no-repeat;" >
-					
-						<br>
-						<IMG class= "pop_headimg" src="http://a0.twimg.com/profile_images/2823681988/f4f6f2bed8ab4d5a48dea4b9ea85d5f1_normal.jpeg">
-					
-						<br>
-						<P class="poptxt"><b>name</b></p>
-						<br>
-						<P class="poptxt"><b>location</b></p>
-						<br>
-						<P class="poptxt"><b>description</b></p>
-						<br>
-						<P class="poptxt"><b>url</b></p>
-						<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>
-						
-					</div>
-					<div id="pop_count" class="ui-grid-b" >
-						
-						<div class="ui-block-a"><br>followers_count<br><br></div>
-						<div class="ui-block-b"><br>friends_count<br><br></div>
-						<div class="ui-block-c"><br>favourites_count<br><br></div>		
-					</div>
-					<hr>
-					<div id="tweet">
-						<P><b>Tweet</b></p>
-					</div>
-					<div id="tweet_info">
-						<p>How to Create an Early Stage Pitch Deck http://t.co/TdYB5I6xBl (Great advice from @ryanspoon )</p>
-					</div>
-				</div>
 				<ul data-role="listview" data-inset="true" id="items" >
 				</ul>
 			
@@ -93,8 +58,12 @@
 		  moreinfo(part_data);
 		  
 	  });
-	  
-	  $.getJSON('favs.json',function (data) {
+	   
+	
+	}
+	$( document ).bind( "pageload", function( event, data ){
+	event.preventDefault();
+	    $.getJSON('favs.json',function (data) {
 		  var h='<div id="tweet">\
 				<P><b>Tweet</b></p>\
 			</div>'
@@ -110,8 +79,8 @@
 		  index=end;
 		  
 	  });
-	   
-	}
+	  data.deferred.resolve( data.absUrl, data.options, page );
+	});
 	
 	function detailInfo(data){
 		 $.each(data, function (count) {
@@ -130,23 +99,19 @@
 		  var sum=index+count;
 		  var shtml = '';
 		  shtml=shtml+'\
-		  <div data-role="popup" id="popupBasic" data-overlay-theme="a" data-position-to="window" style="max-width:500px">\
+		  <div data-role="popup" id="popupBasic'+sum+'" data-overlay-theme="a" data-position-to="window" style="max-width:500px">\
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>\
 			<div data-role="header" data-theme="a" class="ui-corner-top">\
 				<h1>Show Details</h1>\
 			</div>\
 			<div class="pop_cont" style="background-image : url('+background_image+'); background-size:100% 100%; background-repeat:no-repeat;" >\
 				<br>\
-				<IMG class= "pop_headimg" src="+head_image+">\
+				<IMG class= "pop_headimg" src="'+head_image+'">\
 				<br>\
-				<P class="poptxt"><b>Name:</b></p>\
-				<P class="poptxt"><b>'+name+'</b></p>\
-				<P class="poptxt"><b>Location:</b></p>\
-				<P class="poptxt"><b>'+location+'</b></p>\
-				<P class="poptxt"><b>Description:</b></p>\
-				<P class="poptxt"><b>'+description+'</b></p>\
-				<P class="poptxt"><b>Url:</b></p>\
-				<P class="poptxt"><b>'+url+'</b></p>\
+				<P class="poptxt"><b>Name: </b>'+name+'</p>\
+				<P class="poptxt"><b>Location: </b>'+location+'</p>\
+				<P class="poptxt"><b>Description: </b>'+description+'</p>\
+				<P class="poptxt"><b>Url: </b>'+url+'</p>\
 				<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>\
 			</div>\
 			<div id="pop_count" class="ui-grid-b" >\
@@ -162,10 +127,14 @@
 				<p>'+text+'</p>\
 			</div>\
 		</div>'
-		  $('#content').append(shtml);
+		  var id = $.mobile.activePage.attr("id");
+		  $("#" + id).append(shtml);
+		  $("#" + id).trigger('create');
+		  $("#popupBasic"+24).popup("open");
 	    });
 	}
 	
+
 	function moreinfo(data){
 	    $.each(data, function (count) {
 		  var text = this.text;
@@ -176,7 +145,7 @@
 		  shtml=shtml+'<li class="ui-btn ui-btn-up-b ui-btn-icon-right\
 		    ui-li-has-arrow ui-li ui-li-has-thumb" data-corners="true" \
 		    data-shadow="true" data-iconshadow="true" data-wrapperels="div"\
-		    data-icon="arrow-r" data-iconpos="right" data-theme="b">\
+		    data-icon="arrow-r" data-iconpos="right" data-theme="b" id=tweet'+sum+'>\
 					    <div class="ui-btn-inner ui-li">\
 					  <div class="ui-btn-text">\
 					  <a class="ui-link-inherit" href="#popupBasic'+sum+'" data-rel="popup" >\
