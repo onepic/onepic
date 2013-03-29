@@ -1,3 +1,10 @@
-#pop_headimg{
-	center;
+IMG.pop_headimg{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border-style:solid;
+	border-width:5px;
+	border-color:#FFFFFF;
 }
+
