@@ -1,3 +1,4 @@
+
 IMG.pop_headimg{
 	display: block;
 	margin-left: auto;
@@ -8,3 +9,6 @@ IMG.pop_headimg{
 	border-color:#FFFFFF;
 }
 
+P.txt{
+	text-align: center;
+}
