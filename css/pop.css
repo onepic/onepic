@@ -1,4 +1,3 @@
-
 IMG.pop_headimg{
 	display: block;
 	margin-left: auto;
@@ -7,8 +6,12 @@ IMG.pop_headimg{
 	border-style:solid;
 	border-width:5px;
 	border-color:#FFFFFF;
+	width: 100px;
+	height: 100px;
 }
 
-P.txt{
+P.poptxt{
 	text-align: center;
+	font-family:Arial,Helvetica,sans-serif;
+	text-shadow: 1px 0px 6px rgba(0, 0, 0, 1);
 }
