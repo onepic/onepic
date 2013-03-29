@@ -43,9 +43,16 @@
 		}
 	    }
 	});
+	
+	function textchange(txt,lst){
+	    for (var i=0; i < lst.length; i++){
+	      var n = txt.search(lst[i]);
+	      txt = txt.replace(lst[i],'<a href="'+lst[i]+'"target="_blank">'+lst[i]+'</a>');
+	    }
+	    return txt;
+	}
+
 	function clickdata(){
-		   
-		   
 	  $.getJSON('favs.json',function (data) {
 
 		  var end = 0;
@@ -58,11 +65,6 @@
 		  moreinfo(part_data);
 		  
 	  });
-	   
-	
-	}
-	$( document ).bind( "pageload", function( event, data ){
-	event.preventDefault();
 	    $.getJSON('favs.json',function (data) {
 		  var h='<div id="tweet">\
 				<P><b>Tweet</b></p>\
@@ -73,18 +75,17 @@
 		  if (index+25 <= data.length)
 		    end = index+25;
 		  else
-		     end=data.length;
+		    end=data.length;
 		  part_data = data.slice(index,end);
 		  detailInfo(part_data);
 		  index=end;
 		  
 	  });
-	  data.deferred.resolve( data.absUrl, data.options, page );
-	});
+	  };
+	
 	
 	function detailInfo(data){
 		 $.each(data, function (count) {
-		 
 		  var name = this.user.name;
 		  var location = this.user.location;
 		  var description = this.user.description;
@@ -98,6 +99,15 @@
 		  var text = this.text;
 		  var sum=index+count;
 		  var shtml = '';
+		  var urls = [];
+		  for (var i = 0; i < this.entities.urls.length ; i++ ){
+		     if (this.entities.urls[i].url != ""){
+			urls.push(this.entities.urls[i].url); 
+		     }
+		    
+		  }
+		  
+		  text = textchange(text,urls);
 		  shtml=shtml+'\
 		  <div data-role="popup" id="popupBasic'+sum+'" data-overlay-theme="a" data-position-to="window" style="max-width:500px">\
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>\
@@ -110,7 +120,7 @@
 				<br>\
 				<P class="poptxt"><b>Name: </b>'+name+'</p>\
 				<P class="poptxt"><b>Location: </b>'+location+'</p>\
-				<P class="poptxt"><b>Description: </b>'+description+'</p>\
+				<P class="poptxt"><b>Description: <br></b>'+description+'</p>\
 				<P class="poptxt"><b>Url: </b>'+url+'</p>\
 				<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>\
 			</div>\
@@ -140,6 +150,7 @@
 		  var text = this.text;
 		  var name = this.user.screen_name;
 		  var image = this.user.profile_image_url;
+		 
 		  var sum=count+index;
 		  var shtml = '';
 		  shtml=shtml+'<li class="ui-btn ui-btn-up-b ui-btn-icon-right\
