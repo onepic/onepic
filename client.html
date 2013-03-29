@@ -13,8 +13,8 @@
 
 
 		
-		<div data-role = "page" data-theme = "a" id="main">
-			<div data-role = "content" data-theme = "a">
+		<div data-role = "page" data-theme = "a" id="main" data-inset="true">
+			<div data-role = "content" data-theme = "a" data-inset="true" id="content">
 				<a href="#popupBasic" data-rel="popup">Open Popup</a>
 				
 				<div data-role="popup" id="popupBasic" data-overlay-theme="a" data-position-to="window" style="max-width:500px">
@@ -91,17 +91,87 @@
 		     end=data.length;
 		  part_data = data.slice(index,end);
 		  moreinfo(part_data);
+		  
+	  });
+	  
+	  $.getJSON('favs.json',function (data) {
+		  var h='<div id="tweet">\
+				<P><b>Tweet</b></p>\
+			</div>'
+		   $('#popupBasic-popup').append(h);
+		  var end = 0;
+		  var part_data;
+		  if (index+25 <= data.length)
+		    end = index+25;
+		  else
+		     end=data.length;
+		  part_data = data.slice(index,end);
+		  detailInfo(part_data);
 		  index=end;
 		  
 	  });
 	   
 	}
+	
+	function detailInfo(data){
+		 $.each(data, function (count) {
+		 
+		  var name = this.user.name;
+		  var location = this.user.location;
+		  var description = this.user.description;
+		  var url = this.user.url;
+		  var head_image = this.user.profile_image_url;
+		  var background_image = this.user.profile_background_image_url;
+		  
+		  var followers = this.user.followers_count;
+		  var friends = this.user.friends_count;
+		  var favourites = this.user.favourites_count;
+		  var text = this.text;
+		  var sum=index+count;
+		  var shtml = '';
+		  shtml=shtml+'\
+		  <div data-role="popup" id="popupBasic" data-overlay-theme="a" data-position-to="window" style="max-width:500px">\
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>\
+			<div data-role="header" data-theme="a" class="ui-corner-top">\
+				<h1>Show Details</h1>\
+			</div>\
+			<div class="pop_cont" style="background-image : url('+background_image+'); background-size:100% 100%; background-repeat:no-repeat;" >\
+				<br>\
+				<IMG class= "pop_headimg" src="+head_image+">\
+				<br>\
+				<P class="poptxt"><b>Name:</b></p>\
+				<P class="poptxt"><b>'+name+'</b></p>\
+				<P class="poptxt"><b>Location:</b></p>\
+				<P class="poptxt"><b>'+location+'</b></p>\
+				<P class="poptxt"><b>Description:</b></p>\
+				<P class="poptxt"><b>'+description+'</b></p>\
+				<P class="poptxt"><b>Url:</b></p>\
+				<P class="poptxt"><b>'+url+'</b></p>\
+				<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>\
+			</div>\
+			<div id="pop_count" class="ui-grid-b" >\
+				<div class="ui-block-a"><br>Followers: '+followers+'<br><br></div>\
+				<div class="ui-block-b"><br>Friends: '+friends+'<br><br></div>\
+				<div class="ui-block-c"><br>Favourites: '+favourites+'<br><br></div>\
+			</div>\
+			<hr>\
+			<div id="tweet">\
+				<P><b>Tweet</b></p>\
+			</div>\
+			<div id="tweet_info">\
+				<p>'+text+'</p>\
+			</div>\
+		</div>'
+		  $('#content').append(shtml);
+	    });
+	}
+	
 	function moreinfo(data){
-	    $.each(data, function () {
+	    $.each(data, function (count) {
 		  var text = this.text;
 		  var name = this.user.screen_name;
 		  var image = this.user.profile_image_url;
-
+		  var sum=count+index;
 		  var shtml = '';
 		  shtml=shtml+'<li class="ui-btn ui-btn-up-b ui-btn-icon-right\
 		    ui-li-has-arrow ui-li ui-li-has-thumb" data-corners="true" \
@@ -109,7 +179,7 @@
 		    data-icon="arrow-r" data-iconpos="right" data-theme="b">\
 					    <div class="ui-btn-inner ui-li">\
 					  <div class="ui-btn-text">\
-					  <a class="ui-link-inherit" href="#popupBasic" data-rel="popup" >\
+					  <a class="ui-link-inherit" href="#popupBasic'+sum+'" data-rel="popup" >\
 					  <img class="ui-li-thumb" width="80px" src='+image+'>\
 					    <h3 class="ui-li-heading">'+name+'</h3>\
 					  <p class="ui-li-desc">'+text+'</p>\
