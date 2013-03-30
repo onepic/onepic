@@ -96,6 +96,11 @@
 		  var head_image = this.user.profile_image_url;
 		  var background_image = this.user.profile_background_image_url;
 		  
+		  var media = "";
+		  if (typeof this.entities.media!='undefined'){
+		    media=this.entities.media[0].media_url;
+		  }
+		  
 		  var followers = this.user.followers_count;
 		  var friends = this.user.friends_count;
 		  var favourites = this.user.favourites_count;
@@ -138,6 +143,8 @@
 			</div>\
 			<div id="tweet_info">\
 				<p>'+text+'</p>\
+				<img " src="'+media+'" style="max-width:500px">\
+				<P class="poptxt">&emsp;</p>\
 			</div>\
 		</div>'
 		  var id = $.mobile.activePage.attr("id");
