@@ -90,6 +90,7 @@
 		  var location = this.user.location;
 		  var description = this.user.description;
 		  var url = this.user.url;
+		  url = url.replace(url,'<a href="'+url+'"target="_blank">'+url+'</a>');
 		  var head_image = this.user.profile_image_url;
 		  var background_image = this.user.profile_background_image_url;
 		  
@@ -140,7 +141,10 @@
 		  var id = $.mobile.activePage.attr("id");
 		  $("#" + id).append(shtml);
 		  $("#" + id).trigger('create');
-		  $("#popupBasic"+24).popup("open");
+		  
+		  $("#popupBasic"+10).popup("open");
+		  nextPage(sum)
+		  
 	    });
 	}
 	
@@ -168,8 +172,30 @@
 		  $('#items').append(shtml);
 	    });
 	}
-	</script>
+	
+	function nextPage(current){
+	     var next = current+1;
+	     var per = current-1;
+	     
+	     var per_name = '#popupBasic'+ per;
+	     var next_name = '#popupBasic'+ next;
+	     var name = '#popupBasic' + current;
+	       	  $(name).bind("swiperight", function() {
+		      $(name).popup("close");
+		      setTimeout(function(){
+			$(next_name).popup("open");
+		      },100);
+		      
+		  });
+		  $(name).bind("swipeleft", function() {
+		      $(name).popup("close");
+		      setTimeout(function(){
+			$(per_name).popup("open");
+		      },100);
+		  });
 
+	}
+	</script>
 
 	
 </html>
