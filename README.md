@@ -5,8 +5,8 @@ Group Members:
 cdf account       name                student number
 c0chenji      JianFeng, Chen          997482460
 c0chenli      LiChao, Chen
-              LiangXu, Chen
-              HongZhi, Zhao                
+c0chenlj      LiangXu, Chen
+c1zhaoho      HongZhi, Zhao                
               
 FOLDERS/FILES IN DIRECTORY ONEPIC-MASTER
 ./css
