@@ -1,4 +1,4 @@
-Assignment #3
+Assignment #3  
 CSC309H1S spring 2013
 
 Group Members:
