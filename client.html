@@ -14,15 +14,22 @@
 
 		
 		<div data-role = "page" data-theme = "a" id="main" data-inset="true">
-			<div data-role="header" data-theme="a">
-			  <h1>My favorite things</h1>
+			<div data-role="header" data-theme="a">
+
+			  <h1>My favorite things</h1>
+
 			</div>
+			
 			<div data-role = "content" data-theme = "a" data-inset="true" id="content">
+				<div data-role="collapsible" data-state="collapsed" ata-collapsed-icon="plus" data-expanded-icon="minus" data-iconpos="right" id="overview" d>
+				<h2>Overview</h2>
+				<p>This page is GOOD!</p>
+				</div>
 				
 				<ul data-role="listview" data-inset="true" id="items" >
 				</ul>
 			
-			<div data-role="button" onclick="clickdata();">Load more</div>
+			<div data-role="button" onclick="clickdata();" id="load">Load more</div>
 			</div>
 
 		</div>
