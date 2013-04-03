@@ -42,7 +42,6 @@ Clicking on the entry will pop up window that displays the entry author's inform
 Another new feature is that after clicking on the entry, you can go to the next entry or previous entry by left clicking the mouse and dragging it to the right or left respectively.
 
 
-
-
+NOTE:YOU CAN ALSO CHECK OUR WORK ON THE LINK: http://pacific-peak-4950.herokuapp.com
 
 
