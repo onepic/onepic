@@ -121,8 +121,12 @@
 		     if (this.entities.urls[i].url != ""){
 			urls.push(this.entities.urls[i].url); 
 		     }
-		    
 		  }
+		  if (typeof this.entities.media!='undefined'){
+		       for (var i = 0; i < this.entities.media.length ; i++ ){
+			    urls.push(this.entities.media[i].url);
+			}
+		    }
 		  
 		  text = textchange(text,urls);
 		  shtml=shtml+'\
