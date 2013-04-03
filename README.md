@@ -43,5 +43,6 @@ Another new feature is that after clicking on the entry, you can go to the next 
 
 
 NOTE:YOU CAN ALSO CHECK OUR WORK ON THE LINK: http://pacific-peak-4950.herokuapp.com
+Test and work on firefox well
 
 
