@@ -4,20 +4,18 @@ CSC309H1S spring 2013
 Group Members:
 cdf account       name                student number
 c0chenji      JianFeng, Chen          997482460
-c0chenli      LiChao, Chen        
-c0chenlj      LiangXu, Chen
-c1zhaoho      HongZhi, Zhao                
+c0chenli      LiChao, Chen            998202467
+c0chenlj      LiangXu, Chen           998324585
+c1zhaoho      HongZhi, Zhao           998844693     
               
 FOLDERS/FILES IN DIRECTORY ONEPIC-MASTER
 ./css
 
       ./images
       
-      customs.css
       jqm-demos.css
       jqm-icon-pack-2.0-original.css
       jquery.mobile-1.3.0-rc.1.css
-      model.css
       pop.css: customization of  the windows that pop out
                including length width and the texts
 	       
